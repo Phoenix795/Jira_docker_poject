@@ -1,0 +1,34 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'docker-host-alex'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'node_exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['nodeexporter:9100']
+        labels:
+          group: 'node_exporter'
+
+  - job_name: 'jira'
+    scheme: http # change to http if you don't have https
+    metrics_path: '/jira/plugins/servlet/prometheus/metrics'
+    static_configs:
+      - targets: ['172.56.1.2:8080']
+        labels:
+          group: 'jira'
+
+  - job_name: 'confluence'
+    scheme: http # change to http if you don't have https
+    metrics_path: '/confluence/plugins/servlet/prometheus/metrics'
+    static_configs:
+      - targets: ['172.56.1.3:8090']
+        labels:
+          group: 'confluence'
