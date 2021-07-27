@@ -90,7 +90,7 @@ services:
 
   database:
       restart: unless-stopped
-      image: phoenix795/postgresalexjira:1
+      image: phoenix795/postgresalexjira:latest
       container_name: postgres
       volumes:
         - ./postgres/data:/var/lib/postgresql/data
